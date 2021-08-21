@@ -32,7 +32,7 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
       
       -name: Install dependencies
-        run: pip install -r pyproject.toml
+        run: "pip install -r pyproject.toml"
       - name: Run flake8
         run: "flake8 \
           --format='::error file=%(path)s,line=%(row)d,col=%(col)d::\
