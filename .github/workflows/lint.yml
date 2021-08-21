@@ -31,8 +31,12 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       
+      - name: Install flit
+        run: "pip install flit"
+      
       - name: Install dependencies
-        run: "pip install -r pyproject.toml"
+        run: "flit install"
+
       - name: Run flake8
         run: "flake8 \
           --format='::error file=%(path)s,line=%(row)d,col=%(col)d::\
