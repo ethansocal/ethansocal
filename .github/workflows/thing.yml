@@ -1,0 +1,40 @@
+name: MIT license compatibility checker
+
+on:
+  push:
+    paths:
+      - pyproject.toml
+  pull_request:
+    paths:
+      - pyproject.toml
+
+concurrency: lint-${{ github.sha }}
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    env:
+      # Set an environment variable to select pip's cache directory for us to actually cache between runs.
+      PIP_CACHE_DIR: /tmp/pip-cache-dir
+      # The Python version your project uses. Feel free to change this if required.
+      PYTHON_VERSION: 3.9
+    steps:
+      # Checks out the repository in the current folder.
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies with Poetry
+        uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: ${{ env.PYTHON_VERSION }}
+      - name: Install liccheck
+        run: pip install liccheck
+      - name: Check for compatibility with MIT license
+        run: |
+          pip freeze > dev-requirements.txt
+          liccheck -r dev-requirements.txt
