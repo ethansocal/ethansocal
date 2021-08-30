@@ -65,3 +65,37 @@ dev = [
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.liccheck]
+authorized_licenses = [
+    "bsd",
+    "new bsd",
+    "bsd license",
+    "new bsd license",
+    "simplified bsd",
+    "apache",
+    "apache 2.0",
+    "apache software",
+    "apache software license",
+    "gnu lgpl",
+    "lgpl with exceptions or zpl",
+    "GNU Library or Lesser General Public License (LGPL)",
+    "isc license",
+    "isc license (iscl)",
+    "mit",
+    "mit license",
+    "MPL 2.0",
+    "Mozilla Public License 2.0 (MPL 2.0)",
+    "python software foundation license",
+    "Python Software Foundation",
+    "public domain",
+    "zpl 2.1"
+]
+unauthorized_licenses = [
+    "gpl v3"
+]
+
+[tool.liccheck.authorized_packages]
+requests-cache = "0.7.1"
+flake8-isort = "~=4.0"
