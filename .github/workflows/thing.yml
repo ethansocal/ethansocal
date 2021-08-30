@@ -7,7 +7,6 @@ on:
   pull_request:
     paths:
       - pyproject.toml
-  workflow_dispatch:
 
 concurrency: lint-${{ github.sha }}
 
@@ -31,8 +30,6 @@ jobs:
 
       - name: Install dependencies with Poetry
         uses: abatilo/actions-poetry@v2.0.0
-        with:
-          poetry-version: ${{ env.PYTHON_VERSION }}
       - name: Install liccheck
         run: pip install liccheck
       - name: Check for compatibility with MIT license
