@@ -29,10 +29,15 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Install dependencies with Poetry
+      - name: Install Poetry
         uses: abatilo/actions-poetry@v2.0.0
-      - name: Install liccheck
-        run: pip install liccheck
+      
+      - name: Install dependencies
+        run: |
+          pip install liccheck wheel
+          poetry install
+
+
       - name: Check for compatibility with MIT license
         run: |
           pip freeze > dev-requirements.txt
