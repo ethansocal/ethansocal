@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - pyproject.toml
+  manual_dispatch:
 
 concurrency: lint-${{ github.sha }}
 
