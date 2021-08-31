@@ -4,11 +4,11 @@ on:
   push:
     paths:
       - pyproject.toml
-      - .github/workflows/liccheck.yml
+      - .github/workflows/license-checker.yml
   pull_request:
     paths:
       - pyproject.toml
-      - .github/workflows/liccheck.yml
+      - .github/workflows/license-checker.yml
   workflow_dispatch:
 
 concurrency: lint-${{ github.sha }}
@@ -17,7 +17,7 @@ jobs:
 
   build:
 
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     env:
       # Set an environment variable to select pip's cache directory for us to actually cache between runs.
@@ -43,8 +43,6 @@ jobs:
         run: |
           pip install liccheck wheel
           poetry install
-
-
       - name: Check for compatibility with MIT license
         run: |
           poetry export --format requirements.txt --output requirements.txt
