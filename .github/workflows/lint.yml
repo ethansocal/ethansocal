@@ -1,0 +1,45 @@
+# GitHub Action Workflow enforcing our code style.
+
+name: Lint, Build & Deploy
+
+# Trigger the workflow on both push (to the main repository)
+# and pull requests (against the main repository, but from any repo).
+on:
+  push:
+    paths:
+      - '*.py'
+  pull_request:
+    paths:
+      - '*.py'
+# Brand new concurrency setting! This ensures that not more than one run can be triggered for the same commit.
+# It is useful for pull requests coming from the main repository since both triggers will match.
+concurrency: lint-${{ github.sha }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python_version: ['3.7', '3.8', '3.9']
+
+    env:
+      # Set an environment variable to select pip's cache directory for us to actually cache between runs.
+      PIP_CACHE_DIR: /tmp/pip-cache-dir
+      # The Python version your project uses. Feel free to change this if required.
+
+    steps:
+      # Checks out the repository in the current folder.
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python_version }}
+
+      - name: Install dependencies with Poetry
+        uses: abatilo/actions-poetry@v2.0.0
+
+      - name: Run flake8
+        uses: suo/flake8-github-action
+        with:
+          checkName: 'lint'  # Must be the same as the job name
+
+          
