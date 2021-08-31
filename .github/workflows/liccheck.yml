@@ -47,6 +47,6 @@ jobs:
 
       - name: Check for compatibility with MIT license
         run: |
-          pip freeze > requirements.txt
+          poetry export --output requirements.txt
           cat requirements.txt
           liccheck -r requirements.txt
