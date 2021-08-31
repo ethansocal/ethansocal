@@ -6,22 +6,21 @@ name: Lint, Build & Deploy
 # and pull requests (against the main repository, but from any repo).
 on:
   push:
-
 # Brand new concurrency setting! This ensures that not more than one run can be triggered for the same commit.
 # It is useful for pull requests coming from the main repository since both triggers will match.
 concurrency: lint-${{ github.sha }}
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python_version: ['3.7', '3.8', '3.9']
+        python_version: [3.7, 3.8, 3.9]
+        os: [ubuntu-18.04, macos-latest, windows-latest]
+    runs-on: {{ matrix.os }}
 
     env:
       # Set an environment variable to select pip's cache directory for us to actually cache between runs.
       PIP_CACHE_DIR: /tmp/pip-cache-dir
-      # The Python version your project uses. Feel free to change this if required.
 
     steps:
       # Checks out the repository in the current folder.
@@ -35,7 +34,10 @@ jobs:
           pip install wheel flake8
 
       - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.0.0
+        run: |
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+          poetry install
+
       
 
       - name: Run flake8
