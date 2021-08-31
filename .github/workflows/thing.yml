@@ -40,6 +40,5 @@ jobs:
 
       - name: Check for compatibility with MIT license
         run: |
-          poetry export -f requirements.txt --output requirements.txt
-          cat requirements.txt
+          poetry export --without-hashes --dev -f requirements.txt --output requirements.txt
           liccheck -r requirements.txt
