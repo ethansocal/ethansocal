@@ -35,6 +35,6 @@ jobs:
 
       - name: Run flake8
         run: |
-        flake8 --format='::error file=%(path)s,line=%(row)d,col=%(col)d::[flake8] %(code)s: %(text)s'
+          flake8 --format='::error file=%(path)s,line=%(row)d,col=%(col)d::[flake8] %(code)s: %(text)s'
 
           
