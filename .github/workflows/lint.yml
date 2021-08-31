@@ -6,6 +6,8 @@ name: Lint, Build & Deploy
 # and pull requests (against the main repository, but from any repo).
 on:
   push:
+    paths:
+      '*.py'
 
 
 # Brand new concurrency setting! This ensures that not more than one run can be triggered for the same commit.
