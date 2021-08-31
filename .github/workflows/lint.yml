@@ -16,7 +16,7 @@ jobs:
       matrix:
         python_version: [3.7, 3.8, 3.9]
         os: [ubuntu-18.04, macos-latest, windows-latest]
-    runs-on: {{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
     env:
       # Set an environment variable to select pip's cache directory for us to actually cache between runs.
