@@ -4,9 +4,11 @@ on:
   push:
     paths:
       - pyproject.toml
+      - .github/workflows/liccheck.yml
   pull_request:
     paths:
       - pyproject.toml
+      - .github/workflows/liccheck.yml
   workflow_dispatch:
 
 concurrency: lint-${{ github.sha }}
@@ -45,6 +47,6 @@ jobs:
 
       - name: Check for compatibility with MIT license
         run: |
-          poetry export --dev -f requirements.txt --output requirements.txt
+          pip freeze > requirements.txt
           cat requirements.txt
           liccheck -r requirements.txt
