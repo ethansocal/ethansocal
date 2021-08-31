@@ -29,8 +29,13 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
+      - name: Initialize virtual environment
+        run: |
+          python -m venv .venv && source .venv/bin/activate
+      
       - name: Install Poetry
         uses: abatilo/actions-poetry@v2.0.0
+
       
       - name: Install dependencies
         run: |
@@ -41,5 +46,4 @@ jobs:
       - name: Check for compatibility with MIT license
         run: |
           pip freeze > requirements.txt
-          cat requirements.txt
           liccheck -r requirements.txt
