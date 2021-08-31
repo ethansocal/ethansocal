@@ -11,7 +11,6 @@ on:
   pull_request:
     paths:
       - '*.py'
-  workflow_dispatch:
 # Brand new concurrency setting! This ensures that not more than one run can be triggered for the same commit.
 # It is useful for pull requests coming from the main repository since both triggers will match.
 concurrency: lint-${{ github.sha }}
@@ -39,7 +38,7 @@ jobs:
         uses: abatilo/actions-poetry@v2.0.0
 
       - name: Run flake8
-        uses: suo/flake8-github-action
+        uses: suo/flake8-github-action@releases/v1
         with:
           checkName: 'lint'  # Must be the same as the job name
 
