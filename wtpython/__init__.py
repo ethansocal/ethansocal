@@ -1,5 +1,2 @@
-asser dkd
-
-def di(thing):
-    print("hi)
-print('HI")
+def hi():
+    return True
